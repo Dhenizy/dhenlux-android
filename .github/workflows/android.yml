@@ -1,6 +1,8 @@
 name: Build Dhenlux APK
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,3 +26,10 @@ jobs:
         with:
           name: dhenlux-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish download link
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk dhenlux.apk
+          gh release delete latest --cleanup-tag --yes --repo ${{ github.repository }} || true
+          gh release create latest dhenlux.apk --title "Dhenlux latest" --notes "Latest Android build" --latest --repo ${{ github.repository }}
