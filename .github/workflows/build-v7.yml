@@ -1,4 +1,4 @@
- name: Build Dhenlux APK v7
+name: Build Dhenlux APK v7
 on:
   workflow_dispatch:
 jobs:
