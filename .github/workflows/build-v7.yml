@@ -1,4 +1,4 @@
-name: Build Dhenlux APK v7
+ name: Build Dhenlux APK v7
 on:
   workflow_dispatch:
 jobs:
@@ -17,6 +17,23 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+      - name: Prepare signing key
+        env:
+          KS_B64: ${{ secrets.KEYSTORE_BASE64 }}
+          KS_PASS_IN: ${{ secrets.KEYSTORE_PASSWORD }}
+          KS_ALIAS_IN: ${{ secrets.KEY_ALIAS }}
+          KS_KEYPASS_IN: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/dhenlux.jks"
+            echo "KS_PATH=$RUNNER_TEMP/dhenlux.jks" >> "$GITHUB_ENV"
+            echo "KS_PASS=$KS_PASS_IN" >> "$GITHUB_ENV"
+            echo "KS_ALIAS=$KS_ALIAS_IN" >> "$GITHUB_ENV"
+            echo "KS_KEYPASS=$KS_KEYPASS_IN" >> "$GITHUB_ENV"
+            echo "Using the fixed Dhenlux signing key"
+          else
+            echo "No signing key set. This build gets a temporary key."
+          fi
       - name: Install and add Android
         working-directory: work
         run: |
