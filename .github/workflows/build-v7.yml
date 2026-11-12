@@ -4,6 +4,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Unzip the project
@@ -53,3 +55,14 @@ jobs:
         with:
           name: dhenlux-v7-apk
           path: work/android/app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish APK to the share link
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp work/android/app/build/outputs/apk/debug/app-debug.apk dhenlux.apk
+          if gh release view dhenlux-latest >/dev/null 2>&1; then
+            gh release upload dhenlux-latest dhenlux.apk --clobber
+          else
+            gh release create dhenlux-latest dhenlux.apk --title "Dhenlux latest" --notes "Latest Dhenlux APK" --latest
+          fi
+          gh release edit dhenlux-latest --latest
