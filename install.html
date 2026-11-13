@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Install Dhenlux on Android</title>
+<style>
+:root{--bg:#f6fbfa;--tx:#14302f;--pri:#0b7a75;--card:#fff;--bd:#cfe5e2}
+@media(prefers-color-scheme:dark){:root{--bg:#0c1517;--tx:#e6f1ef;--pri:#2bb3a8;--card:#13232a;--bd:#24424a}}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:22px 16px 60px}
+h1{color:var(--pri);margin:0 0 6px}h2{margin:0 0 8px;font-size:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:14px 0}
+.btn{display:inline-block;background:var(--pri);color:#fff;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font:600 16px system-ui;margin:6px 6px 0 0}
+.btn.o{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:16px system-ui}
+.tip{background:rgba(11,122,117,.1);border-radius:10px;padding:10px;margin-top:10px}
+small{opacity:.75}
+</style></head><body><main>
+<h1>Install Dhenlux</h1>
+<p>Free order tracking for dry-cleaning shops. Follow the steps below. Your phone will ask a few safety questions because the app is not from the Play Store. That is normal.</p>
+<div id="notAndroid" class="card" style="display:none"><b>This app is for Android phones.</b><br>Open this page on your Android phone, or use the web version: <a href="https://dhenlux-order-tracking-1.vercel.app/">dhenlux-order-tracking-1.vercel.app</a></div>
+
+<div class="card"><h2>Step 1. Download</h2>
+<a class="btn" href="https://github.com/Dhenizy/dhenlux-android/releases/latest/download/dhenlux.apk">Download Dhenlux</a>
+<p><small>The file is called dhenlux.apk. If your phone says "this type of file can harm your device", tap <b>OK</b> or <b>Download anyway</b>.</small></p></div>
+
+<div class="card"><h2>Which phone do you have?</h2>
+<select id="brand"><option value="">Choose your phone brand</option><option value="samsung">Samsung</option><option value="xiaomi">Xiaomi, Redmi or POCO</option><option value="oppo">Oppo</option><option value="realme">Realme</option><option value="oneplus">OnePlus</option><option value="vivo">vivo or iQOO</option><option value="transsion">Tecno, Infinix or itel</option><option value="huawei">Huawei or Honor</option><option value="other">Another brand</option></select>
+<div class="tip" id="brandTip">Pick your brand and I will show where your phone keeps the install settings.</div></div>
+
+<div class="card"><h2>Step 2. If your phone says it is blocked</h2>
+<p>You may see "For your security, your phone is not allowed to install unknown apps from this source".</p>
+<ol><li>Tap <b>Settings</b> on that message.</li><li>Switch on <b>Allow from this source</b>.</li><li>Press the back button, then open the downloaded file again.</li></ol>
+<a class="btn o" id="openSet" href="intent:#Intent;action=android.settings.MANAGE_UNKNOWN_APP_SOURCES;end">Open the install settings</a>
+<p><small>This button works in Chrome on many phones. If nothing happens, use the steps above, or the brand help in the box higher up.</small></p></div>
+
+<div class="card"><h2>Step 3. If Google Play Protect shows a warning</h2>
+<ol><li>Tap <b>More details</b>.</li><li>Tap <b>Install anyway</b>.</li></ol>
+<p>If it says <b>App blocked</b> and offers no way to continue:</p>
+<ol><li>Open the <b>Google Play Store</b>. Tap your profile picture, then <b>Play Protect</b>, then the settings icon.</li><li>Switch off <b>Scan apps with Play Protect</b>.</li><li>Install Dhenlux, then switch it back on.</li></ol></div>
+
+<div class="card"><h2>Step 4. Install and open</h2>
+<p>Tap <b>Install</b>, then <b>Open</b>. After this, Dhenlux tells you when an update is ready, and you update from inside the app. Your orders stay.</p></div>
+
+<div class="card"><h2>Got the file from Xender or WhatsApp?</h2>
+<ol><li>Open your <b>Files</b> app and find <b>dhenlux.apk</b>. The name must end in <b>.apk</b>, not .zip.</li><li>Tap it. If it opens in another app such as WPS, press and hold it, choose <b>Open with</b>, then pick <b>Package installer</b>.</li><li>Then follow Steps 2 to 4 above.</li></ol></div>
+
+<p><small>Questions? dhenizyokafor@gmail.com · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></small></p>
+</main>
+<script>
+var tips={
+samsung:"Samsung: open Settings, then Security and privacy, then Auto Blocker, and switch it off while you install. You can switch it back on after. The unknown-apps switch is under Settings, then Apps, then Special access, then Install unknown apps.",
+xiaomi:"Xiaomi, Redmi or POCO: open Settings, then Privacy protection, then Special permissions, then Install unknown apps. If the Security app shows a scan or block screen, choose the option to install anyway.",
+oppo:"Oppo: open Settings, then Apps, then Special app access, then Install unknown apps. On some phones it is under Settings, then Security.",
+realme:"Realme: open Settings, then Apps, then Special app access, then Install unknown apps.",
+oneplus:"OnePlus: open Settings, then Apps, then Special app access, then Install unknown apps.",
+vivo:"vivo or iQOO: open Settings, then Apps, then Special access, then Install unknown apps. The i Manager app may also scan new apps, so choose the option to continue.",
+transsion:"Tecno, Infinix or itel: open Settings, then Security, then Install unknown apps. The Phone Master app can also block installs, so allow it there if asked.",
+huawei:"Huawei or Honor: open Settings, then Security, then More security settings, then Install unknown apps.",
+other:"Open your phone Settings and search for <b>Install unknown apps</b> or <b>Unknown sources</b>. Switch it on for the app you used to download Dhenlux, such as Chrome or Files."};
+var sel=document.getElementById("brand"),tip=document.getElementById("brandTip");
+function show(){tip.innerHTML=tips[sel.value]||"Pick your brand and I will show where your phone keeps the install settings."}
+sel.onchange=show;
+var ua=navigator.userAgent;
+if(!/Android/i.test(ua)){document.getElementById("notAndroid").style.display="block"}
+function guess(t){t=String(t||"");
+if(/SM-|samsung/i.test(t))return"samsung";if(/Redmi|POCO|Xiaomi|\bMI\b|M2\d{3}/i.test(t))return"xiaomi";
+if(/CPH\d|OPPO/i.test(t))return"oppo";if(/RMX\d|realme/i.test(t))return"realme";if(/OnePlus/i.test(t))return"oneplus";
+if(/vivo|iQOO/i.test(t))return"vivo";if(/TECNO|Infinix|itel/i.test(t))return"transsion";if(/HUAWEI|HONOR/i.test(t))return"huawei";return""}
+(function(){var g=guess(ua);if(g){sel.value=g;show();return}
+try{navigator.userAgentData.getHighEntropyValues(["model"]).then(function(v){var g2=guess(v.model);if(g2){sel.value=g2;show()}})}catch(e){}})();
+</script></body></html>
