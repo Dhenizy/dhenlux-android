@@ -63,6 +63,6 @@ jobs:
           if gh release view dhenlux-latest >/dev/null 2>&1; then
             gh release upload dhenlux-latest dhenlux.apk --clobber
           else
-            gh release create dhenlux-latest dhenlux.apk --title "Dhenlux latest" --notes "Latest Dhenlux APK" --latest
+            gh release create dhenlux-latest dhenlux.apk --title "Dhenlux latest" --notes "Dhenlux build ${{ github.run_number }}" --latest
           fi
-          gh release edit dhenlux-latest --latest
+          gh release edit dhenlux-latest --notes "Dhenlux build ${{ github.run_number }}" --latest
